@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanzauto - Asistente Inteligente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- La ruta del logo asume que la carpeta 'logo' está dentro de 'frontend' -->
+    <link rel="icon" href="/logo/images.png" type="image/png">
+</head>
+<body>
+    <div id="toast-container"></div>
+    <!-- Modal de Confirmación -->
+    <div id="confirm-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <p id="modal-text">¿Estás seguro?</p>
+            <div class="modal-buttons">
+                <button id="modal-cancel-btn" class="modal-button secondary">Cancelar</button>
+                <button id="modal-confirm-btn" class="modal-button danger">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Panel de Control Lateral -->
+        <aside class="control-panel">
+            <header class="panel-header">
+                <img src="/logo/finanzauto-logo-4d8a7b8a.png" alt="Logo de Finanzauto" class="logo">
+            </header>
+
+            <div class="panel-content">
+                <details class="panel-section" open>
+                    <summary>
+                        <h3><i class="fas fa-server"></i> Estado del Sistema</h3>
+                    </summary>
+                    <div id="status-container" class="status-container">
+                        <div class="status-item">Cargando...</div>
+                    </div>
+                    <div id="stats-container" class="stats-container">
+                        <div class="stat-item">
+                            <span><i class="fas fa-file-alt"></i> Documentos</span>
+                            <span id="doc-count">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span><i class="fas fa-comments"></i> Consultas</span>
+                            <span id="query-count">0</span>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="panel-section">
+                    <summary>
+                        <h3><i class="fas fa-upload"></i> Subir Documento</h3>
+                    </summary>
+                    <form id="upload-form" class="panel-form">
+                        <div class="file-drop-area">
+                            <i class="fas fa-file-arrow-up"></i>
+                            <p>Arrastra y suelta un archivo aquí o</p>
+                            <input type="file" id="file-input" accept=".pdf,.txt,.md,.docx" hidden>
+                            <button type="button" id="browse-btn">Busca en tu equipo</button>
+                        </div>
+                        <div id="file-name-display"></div>
+                        <button type="submit" id="upload-btn">Subir Archivo</button>
+                    </form>
+                </details>
+
+                <details class="panel-section">
+                    <summary>
+                        <h3><i class="fas fa-list-ul"></i> Documentos Disponibles</h3>
+                    </summary>
+                    <div id="doc-list-container" class="doc-list-container">
+                        <p class="empty-list-msg">No hay documentos disponibles.</p>
+                    </div>
+                </details>
+
+                <details class="panel-section">
+                    <summary>
+                        <h3><i class="fas fa-sliders-h"></i> Configuración</h3>
+                    </summary>
+                    <div id="config-container" class="config-container panel-form">
+                        <div class="config-item">
+                            <label for="top-k-slider">Resultados (Top K): <span id="top-k-value">3</span></label>
+                            <input type="range" id="top-k-slider" min="1" max="10" value="3">
+                        </div>
+                        <div class="config-item">
+                            <label for="threshold-slider">Umbral de Similitud: <span id="threshold-value">0.50</span></label>
+                            <input type="range" id="threshold-slider" min="0.1" max="1.0" value="0.5" step="0.05">
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </aside>
+
+        <!-- Área de Chat Principal -->
+        <main class="chat-area">
+            <div class="chat-container">
+                <header class="chat-header">
+                    <h1>Asistente Inteligente</h1>
+                </header>
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Los mensajes del chat se agregarán aquí dinámicamente -->
+                </div>
+                <footer class="chat-input-area">
+                    <form id="chat-form" class="chat-form">
+                        <textarea id="message-input" placeholder="Escribe tu consulta aquí..." required></textarea>
+                        <button type="submit" id="send-button">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </footer>
+            </div>
+        </main>
+    </div>
+    <script src="/js/script.js"></script>
+</body>
+</html> 

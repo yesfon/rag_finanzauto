@@ -1,0 +1,91 @@
+{
+    "title": "RAG API - Detailed Dashboard",
+    "uid": "rag-api-detailed-dashboard-v1",
+    "panels": [
+        {
+            "title": "Total Request Rate (req/s)",
+            "type": "stat",
+            "gridPos": { "h": 5, "w": 6, "x": 0, "y": 0 },
+            "id": 1,
+            "datasource": { "type": "prometheus", "uid": "rag_app_prometheus_ds" },
+            "targets": [
+                {
+                    "refId": "A",
+                    "expr": "sum(rate(starlette_requests_total{job=\"rag-app\"}[5m]))"
+                }
+            ],
+            "fieldConfig": { "defaults": { "unit": "reqps" } }
+        },
+        {
+            "title": "Request Latency (p95)",
+            "type": "stat",
+            "gridPos": { "h": 5, "w": 6, "x": 6, "y": 0 },
+            "id": 2,
+            "datasource": { "type": "prometheus", "uid": "rag_app_prometheus_ds" },
+            "targets": [
+                {
+                    "refId": "A",
+                    "expr": "histogram_quantile(0.95, sum(rate(starlette_requests_processing_time_seconds_bucket{job=\"rag-app\"}[5m])) by (le))"
+                }
+            ],
+            "fieldConfig": { "defaults": { "unit": "s" } }
+        },
+        {
+            "title": "Error Rate (5xx)",
+            "type": "stat",
+            "gridPos": { "h": 5, "w": 6, "x": 12, "y": 0 },
+            "id": 3,
+            "datasource": { "type": "prometheus", "uid": "rag_app_prometheus_ds" },
+            "targets": [
+                {
+                    "refId": "A",
+                    "expr": "sum(rate(starlette_requests_total{job=\"rag-app\", status_code=~\"5..\"}[5m]))"
+                }
+            ],
+            "fieldConfig": { "defaults": { "unit": "reqps" } }
+        },
+        {
+            "title": "Total Queries (last 15m)",
+            "type": "stat",
+            "gridPos": { "h": 5, "w": 6, "x": 18, "y": 0 },
+            "id": 4,
+            "datasource": { "type": "prometheus", "uid": "rag_app_prometheus_ds" },
+            "targets": [
+                {
+                    "refId": "A",
+                    "expr": "sum(increase(starlette_requests_total{job=\"rag-app\", path_template=\"/api/v1/query/\"}[15m]))"
+                }
+            ]
+        },
+        {
+            "title": "Request Rate by Endpoint",
+            "type": "timeseries",
+            "gridPos": { "h": 9, "w": 24, "x": 0, "y": 5 },
+            "id": 5,
+            "datasource": { "type": "prometheus", "uid": "rag_app_prometheus_ds" },
+            "targets": [
+                {
+                    "refId": "A",
+                    "expr": "sum(rate(starlette_requests_total{job=\"rag-app\"}[5m])) by (path_template)",
+                    "legendFormat": "{{path_template}}"
+                }
+            ]
+        },
+        {
+            "title": "Request Count by Status Code",
+            "type": "barchart",
+            "gridPos": { "h": 9, "w": 24, "x": 0, "y": 14 },
+            "id": 6,
+            "datasource": { "type": "prometheus", "uid": "rag_app_prometheus_ds" },
+            "targets": [
+                {
+                    "refId": "A",
+                    "expr": "sum(increase(starlette_requests_total{job=\"rag-app\"}[15m])) by (status_code)",
+                    "legendFormat": "Status {{status_code}}"
+                }
+            ]
+        }
+    ],
+    "time": { "from": "now-15m", "to": "now" },
+    "refresh": "5s"
+}

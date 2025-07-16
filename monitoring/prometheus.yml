@@ -1,0 +1,20 @@
+# global configs
+global:
+  scrape_interval: 15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s # By default, evaluate rules every 15 seconds.
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Job for our RAG application
+  # This assumes you will add an endpoint like /metrics to your FastAPI app
+  # For now, this might not collect app-specific metrics, but it sets up the structure.
+  - job_name: "rag-app"
+    static_configs:
+      # The target is the backend service name and port as seen from within Docker's network
+      - targets: ["rag-app:8000"] 

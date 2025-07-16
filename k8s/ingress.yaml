@@ -1,0 +1,19 @@
+# /k8s/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rag-finanzauto-ingress
+  namespace: rag-finanzauto
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: rag.finanzauto.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: rag-finanzauto-frontend-service # Siempre apunta al frontend
+            port:
+              number: 80 

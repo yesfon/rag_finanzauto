@@ -1,0 +1,370 @@
+<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'><title>Informe de Evaluación RAG</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
+        h1, h2, h3 { color: #005f73; border-bottom: 2px solid #005f73; padding-bottom: 10px; }
+        h1 { font-size: 2.5em; text-align: center; }
+        h2 { font-size: 2em; margin-top: 40px; }
+        h3 { font-size: 1.5em; margin-top: 30px; color: #0a9396; border-bottom: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); }
+        th, td { padding: 12px 15px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #005f73; color: white; font-size: 1.1em; }
+        tr:nth-child(even) { background-color: #e9f5f9; }
+        tr:hover { background-color: #d4ebf2; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+        .summary-table td { font-weight: bold; font-size: 1.2em; }
+        .details-table th { background-color: #0a9396; }
+        .metric { font-family: 'Courier New', Courier, monospace; }
+        .error { color: #d00000; font-weight: bold; }
+        .question { font-style: italic; color: #3d3d3d; }
+    </style>
+    </head><body><div class='container'><h1>📊 Informe de Evaluación del Modelo RAG</h1><h2>Resumen General de Métricas</h2><table class='summary-table'><tr><th>Dataset</th><th>Métrica</th><th>Valor Promedio</th></tr><tr><td rowspan='2'><b>SQUAD_ES</b></td><td class='metric'>hit_rate_at_5</td><td class='metric'>0.6600</td></tr><tr><td class='metric'>rouge_l_fmeasure</td><td class='metric'>0.2516</td></tr></table><h2>Resultados Detallados: SQUAD_ES</h2><table class='details-table'><tr><th>Pregunta</th><th>Respuesta Generada</th><th>Métricas</th><th>Info. de Recuperación</th></tr>
+                <tr>
+                    <td class='question'>¿Cuándo proceden los miembros a votar si están de acuerdo con los principios del proyecto de ley final?</td>
+                    <td>Los miembros proceden a votar sobre si están de acuerdo con los principios generales del proyecto de ley final después de un debate general sobre la forma final del proyecto de ley.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2619</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuándo fue el Super Bowl más reciente organizado en el área South Florida / Miami?</td>
+                    <td>El Super Bowl más reciente organizado en el área de South Florida / Miami fue el Super Bowl XLIV en 2010.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1867</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuánto es el método de tamiz de producción de gas utilizado?</td>
+                    <td>No he encontrado información suficiente en los documentos para responder a esa pregunta.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0412</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>De acuerdo con el teorema de Wilson, ¿qué factorial debe ser divisible por n si algún entero n > 4 es considerado compuesto?</td>
+                    <td>Según el teorema de Wilson, un entero \( n > 4 \) es considerado compuesto si y solo si \((n - 1)!\) es divisible por \( n \).</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2754</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Quién recibió el balón que la leva Newton perdió durante un placaje para hacer un touchdown de Denver?</td>
+                    <td>Malik Jackson recuperó el balón que Cam Newton perdió durante un placaje, lo que resultó en un touchdown para Denver.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0903</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿En qué estados se dan los médicos farmacéuticos autoridad prescriptiva y de diagnóstico?</td>
+                    <td>En los estados de Carolina del Norte y Nuevo México, los médicos farmacéuticos reciben una autoridad prescriptiva y diagnóstica colaborativa.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.3212</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué historia de poca verdad es un pilar de la historia?</td>
+                    <td>La historia que se ha establecido como uno de los pilares de la historia, pero que tiene poco fundamento, es la de la publicación en la puerta. Esta historia se basa en comentarios hechos por Philipp Melanchthon, aunque se cree que no estaba en Wittenberg en ese momento.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.6607</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué dos tratados proporcionaron más instituciones formales de la Unión Europea?</td>
+                    <td>Los dos tratados que proporcionaron más instituciones formales de la Unión Europea son el **Tratado de Roma de 1957** y el **Tratado de Maastricht de 1992**.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2210</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué ley inglesa hizo ese país más acogedor a los hugonotes?</td>
+                    <td>La ley inglesa que hizo al país más acogedor para los hugonotes fue la **Ley de Naturalización Protestante de 1708**. Esta ley facilitó la inmigración de valones y hugonotes protestantes a Inglaterra, permitiéndoles establecerse allí y en otros lugares como Irlanda.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2500</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Por qué cambió la medición del Rin?</td>
+                    <td>La medición de la longitud del Rin cambió debido a un error tipográfico en la enciclopedia alemana Knaurs Lexikon en 1932, que estableció la longitud en 1.320 kilómetros en lugar de los 1.230 kilómetros generalmente aceptados hasta entonces. Este error fue posteriormente adoptado por la autoritaria Brockhaus Enzyklopädie, lo que llevó a su aceptación generalizada en numerosos libros de texto y publicaciones oficiales. El error fue descubierto en 2010, y el Rijkswaterstaat holandés confirmó que la longitud correcta es de 1.232 kilómetros.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.5525</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuándo admitió Tesla a un reportero que tal vez había sacrificado demasiado al no tener una relación?</td>
+                    <td>Tesla admitió a un reportero que tal vez había sacrificado demasiado al no tener una relación hacia el final de su vida.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1915</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Quién se opuso a las colecciones de dinero de Tetzel para liberar almas del purgatorio?</td>
+                    <td>**Martín Lutero** se opuso a las colecciones de dinero de Johann Tetzel para liberar almas del purgatorio. Lutero criticó el dicho atribuido a Tetzel que afirmaba que "tan pronto como la moneda en los anillos de la cofia, el alma del purgatorio brota".</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.6410</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuál fue el final de la Guerra de Sucesión Austriaca?</td>
+                    <td>La Guerra de Sucesión Austriaca terminó formalmente en 1748 con la firma del **Tratado de Aquisgrán**. Este tratado se centró principalmente en resolver problemas en Europa, aunque las cuestiones de reclamos territoriales contradictorios entre las colonias británicas y francesas en América del Norte se convirtieron en una comisión que no llegó a ninguna decisión.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.6339</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuál es el término para la falta de quarks libres obsevables?</td>
+                    <td>El término para la falta de quarks libres observables es **confinamiento de color**.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1513</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Dónde están ubicadas las dos Cortes de Reparto?</td>
+                    <td>No he encontrado información suficiente en los documentos para responder a esa pregunta.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0503</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué nación insular del sur de Asia está representada en la colección V & A?</td>
+                    <td>No he encontrado información suficiente en los documentos para responder a esa pregunta.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0225</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Quién ve a un paciente tras una enfermera que ya no puede ayudar?</td>
+                    <td>Cuando una enfermera ya no puede ayudar a un paciente, los casos complicados son referidos a **oficiales clínicos, médicos y médicos**.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2206</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuánto gana un pionero?</td>
+                    <td>No he encontrado información suficiente en los documentos para responder a esa pregunta.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0661</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>La economía del sur de California se puede describir como una de las más grandes de los Estados Unidos y ¿qué otra característica?</td>
+                    <td>La economía del sur de California se describe como una de las más grandes de los Estados Unidos y es **diversa**, dependiendo en gran medida de la abundancia de petróleo. Además, es famosa por el turismo y Hollywood, y cuenta con industrias como el software, la automoción, los puertos, las finanzas, el turismo, la biomédica y la logística regional.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.5281</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuál es el nombre de la suposición de que cualquier número mayor que 2 puede ser representado como la suma de dos primos?</td>
+                    <td>La suposición de que cualquier número par mayor que 2 puede ser representado como la suma de dos números primos se conoce como la **conjetura de Goldbach**.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2545</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Quién hizo el primero en medir el valor del Constante de Gravitación Universal de Newton?</td>
+                    <td>Henry Cavendish fue el primero en medir el valor de la Constante de Gravitación Universal de Newton en 1798, utilizando un equilibrio de torsión.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1739</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué está mejorando el rugby con las escuelas secundarias?</td>
+                    <td>El rugby está creciendo como deporte en el sur de California, particularmente a nivel de la escuela secundaria, con un número creciente de escuelas que están agregando rugby como un deporte oficial de la escuela.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.8378</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿La mayor parte de la energía de qué tipo es generada hoy por turbinas de vapor?</td>
+                    <td>La mayor parte de la energía eléctrica es generada hoy en día por turbinas de vapor. En los Estados Unidos, el 90% de la energía eléctrica se produce de esta manera utilizando una variedad de fuentes de calor.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.3333</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué es un ejemplo de una sustancia controlada?</td>
+                    <td>Un ejemplo de una sustancia controlada es **Vicodin**, que es genéricamente conocido como hidrocodona.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1098</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué hacen los estudiantes después de la escuela primaria?</td>
+                    <td>Después de completar la escuela primaria, los estudiantes tienen varias opciones. Pueden unirse a un politécnico vocacional juvenil para aprender un oficio, como la confección o la carpintería. Alternativamente, pueden hacer sus propios arreglos para un programa de aprendizaje. Aquellos que completan la escuela secundaria pueden optar por unirse a una politécnica u otra universidad técnica para estudiar durante tres años, o proceder directamente a la universidad para estudiar durante cuatro años. Los graduados de las politécnicas y universidades pueden unirse a la fuerza laboral y, más tarde, obtener una calificación de diploma superior especializado después de uno a dos años de formación, o unirse a la universidad, generalmente en el segundo o tercer año.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.6303</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué palabra mongol que significa amplia difusión puede haber contribuido a la denominación Genghis?</td>
+                    <td>La palabra mongol que significa "amplia difusión" y que puede haber contribuido a la denominación de Genghis es "tenggis".</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2326</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuándo fue la Operación Market Garden?</td>
+                    <td>La Operación Market Garden tuvo lugar en septiembre de 1944.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0899</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué característica dijo Tesla ayudó a sus habilidades científicas?</td>
+                    <td>Tesla afirmó que su castidad fue muy útil para sus habilidades científicas.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2651</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>Aunque algunos acadianos fueron a Francia y otros destiantiones, ¿a qué ciudad norteamericana se trasladaron muchos?</td>
+                    <td>Muchos acadianos se trasladaron a **Nueva Orleans**.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0633</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuántos contratos de estudio se adjudicaron el 25 de octubre?</td>
+                    <td>El 25 de octubre, se adjudicaron tres contratos de estudio.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1224</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuántas veces la defensa de Denver obligó a Newton a hacer negocios?</td>
+                    <td>No he encontrado información suficiente en los documentos para responder a esa pregunta.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0471</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿A qué día se cambió el Super Bowl 50?</td>
+                    <td>No he encontrado información suficiente en los documentos para responder a esa pregunta.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0408</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Para quién trabajan los académicos geográficos?</td>
+                    <td>No he encontrado información suficiente en los documentos para responder a esa pregunta.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0763</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>Después de su reapertura, ¿qué tipos de películas hicieron el espectáculo del Teatro Tower?</td>
+                    <td>Después de su reapertura, el Teatro Tower mostró **películas de segunda y tercera ejecución**, junto con **películas clásicas**.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2414</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuánto vive el 17,7% de la población?</td>
+                    <td>El 17,7% de la población de Kenia vivía con menos de $1,25 al día en 2005.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1905</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué dos estaciones de radio en Denver llevaron el Super Bowl 50?</td>
+                    <td>Las dos estaciones de radio en Denver que llevaron el Super Bowl 50 fueron **KOA (850 AM)** y **KRFX (103.5 FM)**.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1307</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>Cuando hay muchos trabajadores que compiten por unos pocos empleos, ¿qué se considera?</td>
+                    <td>Cuando hay muchos trabajadores compitiendo por unos pocos empleos, se considera que hay una **alta oferta** de trabajadores y una **baja demanda** de empleo. Esto generalmente resulta en **salarios bajos** para esos trabajos, ya que la competencia entre los trabajadores tiende a reducir el salario debido a la naturaleza prescindible del trabajador en relación con su trabajo en particular. Ejemplos de este tipo de trabajos incluyen aquellos como lavar platos o el servicio al cliente.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2742</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué es secretado por el tracto respiratorio para atrapar microorganismos?</td>
+                    <td>El tracto respiratorio secreta **moco** para atrapar y enredar microorganismos.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1200</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Dónde se forman los diques?</td>
+                    <td>Los diques se forman a lo largo de grietas en áreas que están siendo activamente deformadas. Estas intrusiones ígneas largas y planas pueden resultar en la formación de enjambres de diques, como los observables a través del escudo canadiense, o anillos de diques alrededor del tubo de lava de un volcán.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.3465</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué utilizó al-Gama 'a al-Islamiyya para salirse con la suya?</td>
+                    <td>No he encontrado información suficiente en los documentos para responder a esa pregunta.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0411</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuándo se desarrolló la capacidad de utilizar isótopos radiactivos hasta la fecha?</td>
+                    <td>La capacidad de utilizar isótopos radiactivos para obtener fechas absolutas precisas de eventos geológicos se desarrolló a principios del siglo XX. Este avance permitió asignar edades absolutas a las unidades de roca, transformando las viejas edades relativas en nuevas edades absolutas.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.3544</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué compañía lanzó las versiones en CD de las historias de Doctor Who?</td>
+                    <td>La compañía que lanzó las versiones en CD de las historias de Doctor Who es **Big Finish Productions**.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.1259</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Por qué se debe evitar la desobediencia del público en general?</td>
+                    <td>La desobediencia del público en general debe evitarse porque, aunque puede ser útil en ciertos contextos, una gran cantidad de desobediencia puede socavar la ley al fomentar una desobediencia general que no es ni concienzuda ni de beneficio social. Esto puede llevar a un debilitamiento del respeto por las leyes y el orden social. Según Michael Bayles, si una persona viola una ley para crear un caso de prueba y luego gana su caso, ese acto no constituye desobediencia civil. Sin embargo, actos de desobediencia que no buscan un cambio legal o social significativo, como la autogratificación personal, no se consideran desobediencia civil y pueden contribuir a un entorno de desobediencia generalizada.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.4348</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿En qué año cayó el Imperio Corasmio ante Gengis Kan?</td>
+                    <td>El Imperio Corasmio cayó ante Gengis Kan en el año 1220.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.0451</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>Alemania se refirió a qué área más que un país real?</td>
+                    <td>Alemania se refería a un área amorfa de Europa central más que a un país real. Durante el período mencionado, no había una integración cultural o identidad nacional significativa, y "Alemania" seguía siendo en gran medida un término conceptual.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2321</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuál fue una de las principales exportaciones normandas?</td>
+                    <td>Una de las principales exportaciones normandas fue la de jinetes de combate. En 1066, Normandía había estado exportando jinetes de combate durante más de una generación.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.3046</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>Un profesor debe ser miembro de buena posición con qué entidad en muchas situaciones?</td>
+                    <td>Un profesor debe ser miembro de buena reputación con la **universidad** en muchas situaciones, especialmente en escuelas financiadas con fondos públicos. Además, las escuelas privadas también pueden requerir que sus profesores sean personas universitarias.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.3176</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Cuántos seguidores tiene la Iglesia Presbiteriana de África Oriental?</td>
+                    <td>La Iglesia Presbiteriana de África Oriental tiene 3 millones de seguidores en Kenia y los países circundantes.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2791</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué sistema recomendó Tesla a las Cataratas del Niágara en 1893?</td>
+                    <td>Tesla recomendó un sistema de corriente alterna de dos fases para las Cataratas del Niágara en 1893. Basado en su consejo y la demostración de Westinghouse, se otorgó un contrato a Westinghouse Electric para construir un sistema generador de CA de dos fases en las cataratas.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 0.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2598</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                
+                <tr>
+                    <td class='question'>¿Qué tipo de radar fue usado para clasificar árboles en cuatro categorías?</td>
+                    <td>El tipo de radar utilizado para clasificar los árboles en cuatro categorías fue el **radar de apertura sintética (SAR)**.</td>
+                    <td><ul><li><span class='metric'>hit_rate_at_5: 1.0000</span></li><li><span class='metric'>rouge_l_fmeasure: 0.2381</span></li></ul></td>
+                    <td><ul><li><b>Hit:</b> ❌</li><li><b>Esperado:</b> None</li><li><b>Obtenidos:</b> None</li></ul></td>
+                </tr>
+                </table></div></body></html>

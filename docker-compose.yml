@@ -1,0 +1,125 @@
+services:
+  rag-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: rag-finanzauto-app
+    ports:
+      - "8000:8000"
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      - APP_HOST=0.0.0.0
+      - APP_PORT=8000
+      - DEBUG=true
+      - LOG_LEVEL=INFO
+      - CHROMA_PERSIST_DIRECTORY=/app/data/chroma_db
+      - MAX_FILE_SIZE_MB=50
+      - CHUNK_SIZE=1000
+      - CHUNK_OVERLAP=200
+      - TOP_K_RESULTS=5
+      - SIMILARITY_THRESHOLD=0.7
+      - MAX_TOKENS=2000
+      - TEMPERATURE=0.0
+      # Add your API keys here or use .env file
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      # - GROQ_API_KEY=${GROQ_API_KEY:-}  # Not needed - using OpenAI only
+      # - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}  # Not needed - using OpenAI only
+      - PINECONE_API_KEY=${PINECONE_API_KEY:-}
+      - PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT:-}
+    volumes:
+      - ./chroma_db:/app/data/chroma_db
+      - ./uploads:/app/data/uploads
+      - rag_logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - rag-network
+
+  frontend:
+    image: nginx:alpine
+    container_name: rag-finanzauto-frontend
+    ports:
+      - "8081:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./frontend/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - rag-app
+    restart: unless-stopped
+    networks:
+      - rag-network
+
+  # Optional: Add a reverse proxy for production
+  nginx:
+    image: nginx:alpine
+    container_name: rag-finanzauto-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - rag-app
+    restart: unless-stopped
+    networks:
+      - rag-network
+    profiles:
+      - production
+
+  # Optional: Add monitoring with Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: rag-finanzauto-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - rag-network
+    profiles:
+      - monitoring
+
+  # Optional: Add Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: rag-finanzauto-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    networks:
+      - rag-network
+    profiles:
+      - monitoring
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  rag_logs:
+
+networks:
+  rag-network:
+    driver: bridge 

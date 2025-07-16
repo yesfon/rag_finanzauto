@@ -1,0 +1,1 @@
+# RAG FinanzAuto Application Package 

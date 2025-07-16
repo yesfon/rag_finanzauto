@@ -1,0 +1,28 @@
+# /k8s/nginx-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rag-frontend-nginx-conf
+  namespace: rag-finanzauto
+data:
+  nginx.conf: |
+    server {
+        listen 80;
+        server_name rag.finanzauto.com;
+
+        # Servir archivos estáticos
+        location / {
+            root   /usr/share/nginx/html;
+            try_files $uri /index.html;
+        }
+
+        # Redirigir las peticiones de API al servicio del backend
+        location /api/ {
+            # El nombre 'rag-finanzauto-backend-service' debe coincidir con el nombre del Service del backend
+            proxy_pass http://rag-finanzauto-backend-service;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    } 

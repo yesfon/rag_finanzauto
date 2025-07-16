@@ -1,0 +1,48 @@
+# /k8s/backend.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-finanzauto-backend-service # Nombre que usará Nginx para encontrarlo
+  namespace: rag-finanzauto
+spec:
+  selector:
+    app: rag-finanzauto-backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-finanzauto-backend
+  namespace: rag-finanzauto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-finanzauto-backend
+  template:
+    metadata:
+      labels:
+        app: rag-finanzauto-backend
+    spec:
+      containers:
+      - name: backend-container
+        image: yesfon/rag-finanzauto-backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: rag-secrets
+              key: OPENAI_API_KEY
+        readinessProbe:
+          httpGet:
+            path: /api/v1/health/
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10 
