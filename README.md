@@ -671,24 +671,6 @@ curl -X POST http://localhost:8000/api/v1/documents/reset
 ls -la data/chroma_db/
 ```
 
-## 📞 Soporte y Contacto
-
-- **Issues**: [GitHub Issues](https://github.com/your-username/rag-finanzauto/issues)
-- **Documentación**: [Wiki del proyecto](https://github.com/your-username/rag-finanzauto/wiki)
-- **Email**: soporte@finanzauto.com
-
-## 📄 Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
-## 🙏 Agradecimientos
-
-- **LangChain**: Framework para aplicaciones LLM
-- **ChromaDB**: Base de datos vectorial
-- **FastAPI**: Framework web moderno
-- **Sentence-Transformers**: Embeddings de alta calidad
-- **OpenAI**: API de LLM
-
 ---
 
 **Desarrollado para FinanzAuto** 
